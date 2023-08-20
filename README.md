@@ -32,12 +32,13 @@ Interact with the API:
 ------------
 In the Swagger UI, you can browse the available API endpoints, send requests, and view responses. Use the provided input fields to test different scenarios and see the expected results.
 
-![image](https://github.com/shirMax/GitHubRepoInfoServer/assets/110455848/14c36331-3c66-4fd6-a1bb-c28c882816f7)
+![image](https://github.com/shirMax/GitHubRepoInfoServer/assets/110455848/4d166b05-85f4-4d95-acf5-b0c9017d4e86)
+
+![image](https://github.com/shirMax/GitHubRepoInfoServer/assets/110455848/053c0845-f210-4d16-a217-2bad4a2e0fd0)
 
 
-![image](https://github.com/shirMax/GitHubRepoInfoServer/assets/110455848/59cd64d0-fbb0-43af-8c92-0c2ba1c82efd)
+![image](https://github.com/shirMax/GitHubRepoInfoServer/assets/110455848/eb5fa2eb-edbc-40a0-b0e4-9fcdd399a80d)
 
-![image](https://github.com/shirMax/GitHubRepoInfoServer/assets/110455848/300cc72c-0e10-468c-ae6b-07d8a9e08c05)
 
 
 
