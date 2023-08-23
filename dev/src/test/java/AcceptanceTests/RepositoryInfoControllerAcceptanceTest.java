@@ -37,12 +37,12 @@ class RepositoryInfoControllerAcceptanceTest {
         List<RepositoryInfo> repositoryInfoList = Collections.singletonList(new RepositoryInfo("repo1", 1, "url", "creationTime", 5));
 
         when(mockHttpSession.getId()).thenReturn(sessionId);
-        when(mockGitHubFetcher.RepositoryInfo(organizationName, phrase, sessionId, page, null)).thenReturn(repositoryInfoList);
+        when(mockGitHubFetcher.repositoryInfo(organizationName, phrase, sessionId, page, null)).thenReturn(repositoryInfoList);
 
-        List<RepositoryInfo> responseList = repositoryInfoController.RepositoryInfo(organizationName, phrase, page, null, mockHttpSession);
+        List<RepositoryInfo> responseList = repositoryInfoController.repositoryInfo(organizationName, phrase, page, null, mockHttpSession);
 
         assertEquals(repositoryInfoList, responseList);
 
-        verify(mockGitHubFetcher, times(1)).RepositoryInfo(organizationName, phrase, sessionId, page, null);
+        verify(mockGitHubFetcher, times(1)).repositoryInfo(organizationName, phrase, sessionId, page, null);
     }
 }

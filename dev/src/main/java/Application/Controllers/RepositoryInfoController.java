@@ -34,7 +34,7 @@ public class RepositoryInfoController {
             " Organization name must be provided, and if a search phrase is given, it must be at least 3 characters long." +
             " Pagination is optional, where 'page' specifies the page number of results, and 'per_page' indicates the number of repositories to display per page.")
     @GetMapping("/repositories")
-    public List<RepositoryInfo> RepositoryInfo(@RequestParam(value = "organizationName") String organizationName,
+    public List<RepositoryInfo> repositoryInfo(@RequestParam(value = "organizationName") String organizationName,
                                                @RequestParam(value = "phrase", required = false) @Size(min = 3) String phrase,
                                                @RequestParam(value = "page", required = false) Integer page,
                                                @RequestParam(value = "per_page", required = false) Integer perPage,
@@ -42,7 +42,7 @@ public class RepositoryInfoController {
 
 
         String sessionId = httpSession.getId();
-        return gitHubFetcher.RepositoryInfo(organizationName, phrase, sessionId, page, perPage);
+        return gitHubFetcher.repositoryInfo(organizationName, phrase, sessionId, page, perPage);
     }
 
     public void setGitHubFetcher(GitHubFetcher gitHubFetcher) {

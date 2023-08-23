@@ -34,7 +34,7 @@ public class GitHubFetcher {
         }
     }
 
-    public List<RepositoryInfo> RepositoryInfo(String organizationName, String phrase, String sessionId, Integer page, Integer perPage) {
+    public List<RepositoryInfo> repositoryInfo(String organizationName, String phrase, String sessionId, Integer page, Integer perPage) {
         logger.info("Entering RepositoryInfo method... params: organizationName="+organizationName+" phrase="+phrase+" page="+page+ " sessionId="+sessionId+ " perPage="+perPage);
 
         if(phrase != null && phrase.length() < 3) {
@@ -42,8 +42,10 @@ public class GitHubFetcher {
         }
         JSONArray repositories = fetchRepositories(organizationName, sessionId, page, perPage);
 
+        List<RepositoryInfo> repositoryInfos = filterRepositoriesByRepoName(repositories, phrase);
         logger.info("Exiting RepositoryInfo method... params: organizationName="+organizationName+" phrase="+phrase+" page="+page+ " sessionId="+sessionId+" per page="+perPage);
-        return filterRepositoriesByRepoName(repositories, phrase);
+
+        return repositoryInfos;
     }
 
     private List<RepositoryInfo> filterRepositoriesByRepoName(JSONArray repositories, String phrase) {
@@ -74,16 +76,24 @@ public class GitHubFetcher {
             HttpURLConnection connection = getConnectionWithGitHub(url);
             connection.setRequestMethod("GET");
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            StringBuilder response = new StringBuilder();
+            int statusCode = connection.getResponseCode();
 
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
+            if (statusCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                StringBuilder response = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                return new JSONArray(response.toString());
+            } else {
+                logger.severe("Server returned status code: " + statusCode);
+                JSONArray emptyArray = new JSONArray();
+                return emptyArray;
             }
-            reader.close();
-
-            return new JSONArray(response.toString());
         }
         catch (Exception e) {
             logger.severe("An error occurred: " + e.getMessage());
